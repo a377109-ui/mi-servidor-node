@@ -1,1 +1,1 @@
-Contenido que el servidor va a leer
+Contenido de la tarea de lectura del servidor

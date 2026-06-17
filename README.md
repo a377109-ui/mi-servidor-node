@@ -1,26 +1,40 @@
-# Práctica de Servidores en Node.js
+# Práctica: Servidores HTTP y Contenedores en Node.js
+**Estudiante:** Rafael Ahumada Velazquez
+**Materia:** Programacion para Plataformas Emergentes  
 
-Este proyecto es una guía paso a paso para entender el funcionamiento de Node.js, desde un Hola Mundo básico hasta la contenedorización con Docker.
+## Descripción
+Se desarrolla desde un script básico en Node.js hasta un servidor web asíncrono completamente contenedorizado en Docker.
 
-## Archivos del proyecto
+## Etapas de la Práctica
 
-* `hola.js`: Saludo básico en consola.
-* `server-basic.js`: Servidor HTTP básico.
-* `server-sync.js`: Servidor que lee un archivo de forma síncrona (bloqueante).
-* `server-async.js`: Servidor que lee un archivo de forma asíncrona (no bloqueante) **(Elegido para producción)**.
-* `documento.txt`: Archivo de texto de prueba.
+### 1. Hola Mundo Básico
+* **Archivo:** `hola.js`
+* **Comando de ejecución:** `node hola.js`
+* *Descripción:* Saludo básico por consola para verificar la correcta instalación del entorno de ejecución de Node.js.
 
-## Cómo ejecutar localmente
-Para el servidor principal (asíncrono):
-```bash
-node server-async.js
----
+### 2. Servidor HTTP Simple
+* **Archivo:** `server-basic.js`
+* **Puerto:** 3000
+* *Descripción:* Creación de un servidor web utilizando el módulo nativo `http`. Responde con un texto "Hola Mundo" directo al navegador.
 
-## 6) Crear Dockerfile e implementar
+### 3. Servidor Síncrono (Lectura de Archivos)
+* **Archivo:** `server-sync.js`
+* **Puerto:** 3001
+* *Descripción:* Servidor que lee el archivo `documento.txt` usando `fs.readFileSync()`. Bloquea el hilo de ejecución principal mientras se realiza la lectura.
 
-Para meter nuestra aplicación en un contenedor Docker, primero le diremos qué archivo arrancar por defecto en nuestro `package.json`. Asegúrate de que tenga esta línea en la sección de scripts:
+### 4. Servidor Asíncrono (No Bloqueante)
+* **Archivo:** `server-async.js`
+* **Puerto:** 3002
+* *Descripción:* Servidor que implementa `fs.readFile()` con un callback. Es la arquitectura recomendada para producción, ya que permite atender otras peticiones en paralelo mientras lee el archivo.
 
-```json
-"scripts": {
-  "start": "node server-async.js"
-}
+### 5. Documentación
+* Presente en este archivo `README.md`.
+
+### 6. Dockerfile e Implementación
+* **Archivo:** `Dockerfile` y `.dockerignore`
+* **Comandos para desplegar:**
+  ```bash
+  docker build -t mi-servidor-node .
+  docker run -p 3002:3002 mi-servidor-node
+
+  
